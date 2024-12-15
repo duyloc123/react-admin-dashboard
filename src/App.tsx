@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Loading from './components/Loading';
 // layout
 // import { MainLayout } from './layouts/main-layout';
 // import { SecondaryLayout } from './layouts/secondary-layout';
@@ -14,6 +15,8 @@ const App: React.FC = () => {
   return (
     <>
       <RouteMain />
+
+      <Loading />
     </>
   );
 };

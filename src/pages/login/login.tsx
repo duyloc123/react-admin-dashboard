@@ -5,6 +5,9 @@ import { Button, Form, Input, Select } from 'antd';
 // configs
 import { ROUTE_PATH } from '../../configs/constants';
 
+// services
+import { axiosInstance } from '../../services/initRequest';
+
 const { Option } = Select;
 
 type FieldType = {
@@ -12,18 +15,39 @@ type FieldType = {
   password: string;
 };
 
+// error 400 -> message 400,
+// error 500 -> 500
+// status 403 -> not authenticate -> 
+// call api A => 401 -> token expire -> call api refresh token -> auto call api A
+// axios interceptor
+
 function Login() {
   const navigate = useNavigate();
+  // const [error, setErro]
+  // const [isLoading, setIsLoading]
 
-  const onFinish: FormProps<FieldType>['onFinish'] =  (values) => {
+  const onFinish: FormProps<FieldType>['onFinish'] =  async (values) => {
     const bodyData = {
       data: {
         "email": values.email,
         "password": values.password
       }
     }
-    console.log('bodyData: ', bodyData)
-    navigate(ROUTE_PATH.DASHBOARD);
+    try {
+      const response = await axiosInstance('/api/user/signin', {
+        method: 'POST',
+        data: bodyData,
+        showSpinner: true
+      })
+      if(response.data.isSucess) {
+        const access_token = response.data.data.access_token;
+        window.localStorage.setItem('access_token', access_token);
+        navigate(ROUTE_PATH.DASHBOARD);
+      }
+    } catch(error: any) {
+      console.log('onFinish failure: ', error)
+    }
+   
   };
 
   return (
