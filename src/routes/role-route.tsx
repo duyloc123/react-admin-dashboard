@@ -7,7 +7,7 @@ interface RoleRouteProps extends React.PropsWithChildren {
 }
 
 function RoleRoute({ roles, children }: RoleRouteProps) {
-  const role = 'member'; // get state from redux
+  const role = 'admin'; // get state from redux
   const navigate = useNavigate();
 
   React.useEffect(() => {

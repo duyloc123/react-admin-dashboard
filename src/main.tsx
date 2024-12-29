@@ -4,13 +4,23 @@ import './styles/index.css'
 import App from './App.tsx'
 
 import { initRequest } from './services/initRequest.tsx';
+import { Provider } from 'react-redux';
+import { store } from './store.ts';
 
-initRequest();
+initRequest(store);
 
 createRoot(document.getElementById('root')!).render(
-  // <StrictMode>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-  // </StrictMode>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 )
+
+/*
+state = {
+  app: {
+    isLoading: true
+  }
+}
+*/

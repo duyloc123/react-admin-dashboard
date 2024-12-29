@@ -1,29 +1,16 @@
 import React from 'react';
-import { Button, Spin } from 'antd';
+import { Spin } from 'antd';
+import { useSelector } from 'react-redux';
+import { IRooteState } from '../types';
 
 const Loading: React.FC = () => {
-  const [spinning, setSpinning] = React.useState(false);
-  const [percent, setPercent] = React.useState(0);
+  const isLoading = useSelector((state: IRooteState) => state.app.isLoading);
 
-  const showLoader = () => {
-    setSpinning(true);
-    let ptg = -10;
-
-    const interval = setInterval(() => {
-      ptg += 5;
-      setPercent(ptg);
-
-      if (ptg > 120) {
-        clearInterval(interval);
-        setSpinning(false);
-        setPercent(0);
-      }
-    }, 100);
-  };
+  if(!isLoading) return null;
 
   return (
     <>
-      <Spin spinning={spinning} fullscreen />
+      <Spin fullscreen />
     </>
   );
 };

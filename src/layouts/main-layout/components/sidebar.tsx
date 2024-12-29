@@ -1,9 +1,10 @@
 import {
-  UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from '../../../configs/constants';
 
 const { Sider } = Layout;
 
@@ -12,6 +13,8 @@ interface SidebarProps {
 }
 
 function Sidebar({ collapsed }: SidebarProps ) {
+  const navigate = useNavigate();
+  
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
       <div className="demo-logo-vertical" />
@@ -22,19 +25,16 @@ function Sidebar({ collapsed }: SidebarProps ) {
         items={[
           {
             key: '1',
-            icon: <UserOutlined />,
-            label: 'nav 1',
+            icon: <VideoCameraOutlined />,
+            label: 'Dashboard',
+            onClick: () => navigate(ROUTE_PATH.DASHBOARD)
           },
           {
             key: '2',
-            icon: <VideoCameraOutlined />,
-            label: 'nav 2',
-          },
-          {
-            key: '3',
-            icon: <UploadOutlined />,
-            label: 'nav 3',
-          },
+            icon: <UserOutlined />,
+            label: 'User',
+            onClick: () => navigate(ROUTE_PATH.USER)
+          }
         ]}
       />
     </Sider>

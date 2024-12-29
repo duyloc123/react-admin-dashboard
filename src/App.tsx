@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Loading from './components/Loading';
+import Notification from './components/Notification';
 // layout
 // import { MainLayout } from './layouts/main-layout';
 // import { SecondaryLayout } from './layouts/secondary-layout';
@@ -11,12 +12,13 @@ import Loading from './components/Loading';
 import { RouteMain } from './routes/routes';
 
 const App: React.FC = () => {
-  
   return (
     <>
       <RouteMain />
 
       <Loading />
+
+      <Notification />
     </>
   );
 };
